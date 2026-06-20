@@ -20,7 +20,7 @@
   --ring:0 0 0 3px rgba(51,81,140,.30);}
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--bg-top);scroll-behavior:smooth}
-body{color:var(--text);font-family:var(--font);font-size:clamp(15px,0.45vw + 13.2px,18px);line-height:1.62;
+body{color:var(--text);font-family:var(--font);font-size:clamp(15px,0.45vw + 13.2px,18px);line-height:1.62;overflow-wrap:break-word;
   background:linear-gradient(180deg,var(--bg-top),var(--bg-bot));background-attachment:fixed;
   -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;font-feature-settings:"cv05" 1,"cv11" 1,"ss01" 1,"tnum" 1;padding-bottom:64px}
 .wrap{max-width:min(1380px,94vw);margin:0 auto;padding:0 28px}
@@ -71,9 +71,10 @@ h2{font-size:clamp(21px,2.1vw,30px);font-weight:400;letter-spacing:-.018em;color
 .tb.on{background:var(--accent);color:#fff;border-color:var(--accent);box-shadow:0 4px 12px -5px rgba(51,81,140,.55)}
 .tb.on:hover{background:var(--accent-strong);color:#fff}
 .toolbar .hint{font-size:12px;color:var(--faint);line-height:1.4}
-.net{height:clamp(540px,80vh,1080px);border:1px solid var(--hair);border-radius:12px;background:
+.net{height:clamp(540px,80vh,1080px);border:1px solid var(--hair);border-radius:12px;touch-action:pan-y;background:
   radial-gradient(circle at 1px 1px,rgba(34,46,68,.055) 1px,transparent 0) 0 0/24px 24px,var(--surface-3);
   box-shadow:inset 0 1px 2px rgba(18,24,38,.04)}
+.net canvas{touch-action:pan-y!important}   /* vertical swipes scroll the page over the graph; pinch still zooms */
 .edgelist{margin-top:18px}
 .edgelist summary{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600;padding:9px 0;list-style:none}
 .edgelist summary::-webkit-details-marker{display:none}
@@ -123,7 +124,28 @@ tbody tr:hover:not(.bandrow){background:var(--accent-soft)}
 .tk-txt b{color:var(--text);font-weight:600}
 .foot{max-width:min(1380px,94vw);margin:10px auto 0;padding:0 28px;color:var(--faint);font-size:12.5px;line-height:1.6}
 .foot code{font-size:.92em}
-@media(max-width:640px){.wrap{padding:0 16px}.card{padding:20px 15px}.net{height:64vh}.legends{gap:22px}.step-counts{justify-content:flex-start}}
+/* ───────── responsive: phones & small tablets ───────── */
+@media(max-width:640px){
+  .wrap{padding:0 16px}.navflex{padding:9px 16px}.foot{padding:0 16px}
+  .top{padding:34px 0 24px}
+  .card{padding:20px 16px;border-radius:14px}
+  .step{scroll-margin-top:96px}
+  .step-head{flex-wrap:wrap;gap:12px 16px}
+  .step-counts{margin-left:0;width:100%;justify-content:flex-start}
+  .net{height:clamp(360px,62vh,560px)}
+  .toolbar .hint{font-size:11.5px}
+  .legends{gap:20px}
+}
+@media(max-width:430px){
+  .wrap{padding:0 13px}.navflex{padding:8px 13px;gap:7px}.foot{padding:0 13px}
+  .top{padding:28px 0 20px}
+  .card{padding:16px 13px}
+  .navlink{font-size:13.5px;padding:8px 13px}
+  .tb{font-size:12px;padding:6px 11px}
+  .toolbar .hint{display:none}
+  .net{height:clamp(320px,58vh,500px)}
+  .step-head{gap:10px 12px}.step-num{min-width:42px}
+}
 </style></head><body>
 <header class="top"><div class="wrap">
 <div class="kicker">Per-step circuit diagrams for 3D modelling</div>
@@ -144,7 +166,6 @@ tbody tr:hover:not(.bandrow){background:var(--accent-soft)}
 <main class="wrap">
 <section id="d-cue" class="card step" style="--c:#39414F">
 <div class="step-head"><div class="step-num">1</div><div><h2>Cue</h2><div class="step-tag">Integrated cue circuit — perception + interoception in one graph</div></div><div class="step-counts"><span class="cn">13 ROIs</span><span class="cn">24 arrows drawn</span><span class="cn">0 self-motifs</span></div></div>
-<p class="blurb">The cue stage as ONE integrated circuit (no perception/interoception split). A drug cue — external or internal / interoceptive — is relayed and valued, converges on the NAc (the limbic-motor sink), is gated by the VTA dopamine hub, and is restrained by two anti-reward inputs (habenula, BNST). The MTL memory gateway and the limbic (midline) thalamus — reuniens — bind cue identity + context; BLA, OFC, dACC and the anterior insula route value / salience to the NAc; the posterior insula (pINS) feeds aINS (the interoceptive front-end). Green = activation, red = deactivation — the two red arrows are the anti-reward brakes HAB→VTA (via RMTg) and BNST→VTA. Self-contained by design: edges 2-14 / 2-15 / 2-16 duplicate their Motivation-stage twins (3-16 / 3-02) so the cue stage stands alone.</p>
 <div class="toolbar"><button class="tb" data-act="layout" data-k="cue">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="cue">+ transmitter on each arrow</button><button class="tb" data-act="fit" data-k="cue">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
 <div class="net" id="net-cue"></div>
 <details class="edgelist"><summary>Connection list — 24 drawn arrows (one per source · target · sign; ×k folds the firing-event steps) + 0 self-motifs folded into nodes</summary><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Connection</th><th>Effect</th><th>×k</th><th>Folded firing-event steps</th><th>Transmitter(s)</th><th>↻</th></tr></thead><tbody>
@@ -177,7 +198,6 @@ tbody tr:hover:not(.bandrow){background:var(--accent-soft)}
 </section>
 <section id="d-mot" class="card step" style="--c:#39414F">
 <div class="step-head"><div class="step-num">2</div><div><h2>Motivation</h2><div class="step-tag">Incentive salience · “wanting”</div></div><div class="step-counts"><span class="cn">11 ROIs</span><span class="cn">16 arrows drawn</span><span class="cn">2 self-motifs</span></div></div>
-<p class="blurb">Four arms set drive on the VTA-DA core: projection-specific DA output, the VP opponent (NAc→VP→VTA disinhibition vs VP→LHb), LH-orexin, and the dark-side BNST/CeA stress arm. Red arrows are the GABAergic brakes (NAc→VP, VP→VTA, dynorphin→VTA).</p>
 <div class="toolbar"><button class="tb" data-act="layout" data-k="mot">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="mot">+ transmitter on each arrow</button><button class="tb" data-act="fit" data-k="mot">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
 <div class="net" id="net-mot"></div>
 <details class="edgelist"><summary>Connection list — 16 drawn arrows (one per source · target · sign; ×k folds the firing-event steps) + 2 self-motifs folded into nodes</summary><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Connection</th><th>Effect</th><th>×k</th><th>Folded firing-event steps</th><th>Transmitter(s)</th><th>↻</th></tr></thead><tbody>
@@ -205,7 +225,6 @@ tbody tr:hover:not(.bandrow){background:var(--accent-soft)}
 </section>
 <section id="d-act" class="card step" style="--c:#39414F">
 <div class="step-head"><div class="step-num">3</div><div><h2>Action</h2><div class="step-tag">Basal-ganglia selection → habit</div></div><div class="step-counts"><span class="cn">14 ROIs</span><span class="cn">16 arrows drawn</span><span class="cn">1 self-motifs</span></div></div>
-<p class="blurb">Cortical Glu × VTA-DA × insular salience hit NAc/striatal MSNs (ChI gate) → direct (go) / indirect (no-go) / hyperdirect pathways → thalamo-cortical motor return. The Haber spiral walks control ventral→dorsolateral (goal-directed → habit).</p>
 <div class="toolbar"><button class="tb" data-act="layout" data-k="act">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="act">+ transmitter on each arrow</button><button class="tb" data-act="fit" data-k="act">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
 <div class="net" id="net-act"></div>
 <details class="edgelist"><summary>Connection list — 16 drawn arrows (one per source · target · sign; ×k folds the firing-event steps) + 1 self-motifs folded into nodes</summary><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Connection</th><th>Effect</th><th>×k</th><th>Folded firing-event steps</th><th>Transmitter(s)</th><th>↻</th></tr></thead><tbody>
@@ -232,7 +251,6 @@ tbody tr:hover:not(.bandrow){background:var(--accent-soft)}
 </section>
 <section id="d-rew" class="card step" style="--c:#39414F">
 <div class="step-head"><div class="step-num">4</div><div><h2>Reward</h2><div class="step-tag">Hedonic impact — the pleasure ‘liking’ hotspots</div></div><div class="step-counts"><span class="cn">5 ROIs</span><span class="cn">6 arrows drawn</span><span class="cn">0 self-motifs</span></div></div>
-<p class="blurb">After the action completes, the hedonic ‘liking’ system lights up — the pleasure circuit, dissociable from the dopaminergic ‘wanting’ / reward-prediction-error pathway (Berridge &amp; Kringelbach 2015, Neuron). Three μ-opioid hedonic hotspots: the brainstem parabrachial nucleus (PBN, a taste / visceral relay) and the two forebrain hotspots — NAc shell and ventral pallidum (VP), coupled by the GABAergic NAc→VP link (red). PBN ascends to the posterior insula (shown simplified — the canonical route is PBN→VPMpc-thalamus→insula); posterior insula and OFC code hedonic value and feed the NAc. Standalone panel — no Action / Consolidation baton.</p>
 <div class="toolbar"><button class="tb" data-act="layout" data-k="rew">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="rew">+ transmitter on each arrow</button><button class="tb" data-act="fit" data-k="rew">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
 <div class="net" id="net-rew"></div>
 <details class="edgelist"><summary>Connection list — 6 drawn arrows (one per source · target · sign; ×k folds the firing-event steps) + 0 self-motifs folded into nodes</summary><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Connection</th><th>Effect</th><th>×k</th><th>Folded firing-event steps</th><th>Transmitter(s)</th><th>↻</th></tr></thead><tbody>
@@ -247,7 +265,6 @@ tbody tr:hover:not(.bandrow){background:var(--accent-soft)}
 </section>
 <section id="d-con" class="card step" style="--c:#39414F">
 <div class="step-head"><div class="step-num">5</div><div><h2>Consolidation</h2><div class="step-tag">Stabilise the trace + cycle closure (Repeat)</div></div><div class="step-counts"><span class="cn">14 ROIs</span><span class="cn">19 arrows drawn</span><span class="cn">3 self-motifs</span></div></div>
-<p class="blurb">Five processes stabilise the cue–drug trace (6A CP-AMPAR · 6B reconsolidation · 6C molecular · 6D sleep SWR–spindle · 6E neuromodulatory + perineuronal nets), unified by synaptic tagging-and-capture: the recently-active cue–drug synapse sets a transient tag that becomes a lasting trace only when the dopaminergic teaching signal — DA via the hippocampal–VTA / LC loop (6-13 / 6-14), not the hedonic ‘liking’ of the Reward panel — drives capture of plasticity-related proteins (ΔFosB / BDNF, 6C). That one reward signal consolidates the cue, the action and the context in parallel across amygdala, striatum and hippocampus. Repeat re-enters the trace to the Cue stage via four reinstatement routes (dashed conceptually; here as their home edges).</p>
 <div class="toolbar"><button class="tb" data-act="layout" data-k="con">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="con">+ transmitter on each arrow</button><button class="tb" data-act="fit" data-k="con">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
 <div class="net" id="net-con"></div>
 <div class="typedkey"><span class="tk-h">Typed edges <span class="tk-sub">beyond green/red projections</span></span><span class="tk-item"><span class="etb et-gate">⇌ gate</span><span class="tk-txt"><b>destabilisation gate</b> · folded into the BLA&nbsp;⟲ badge — the conceptual hinge of reconsolidation</span></span><span class="tk-item"><span class="etb et-plasticity">Δ plasticity</span><span class="tk-txt"><b>reconsolidation plasticity</b> · folded into the BLA&nbsp;⟲ badge — the re-storage it gates</span></span><span class="tk-item"><span class="etb et-process">⊖ process</span><span class="tk-txt"><b>retrieval-extinction</b> · bundled inside the BLA&nbsp;→&nbsp;NAc arrow (hover · list)</span></span></div>
@@ -285,6 +302,7 @@ window.UNA_ANCHOR={"minx": 0.0, "miny": 0.0, "maxx": 1700.0, "maxy": 1050.0};
 window.UNA_NODECOLOR={"background": "#C3C9D4", "border": "#A7AFBE", "highlight": {"background": "#AEB6C4", "border": "#8C95A6"}};
 
 (function(){
+  var COARSE=(window.matchMedia&&window.matchMedia('(pointer:coarse)').matches)||('ontouchstart' in window);  // touch device → make graphs scroll-friendly
   if(typeof vis==='undefined'){
     document.querySelectorAll('.net').forEach(function(n){
       n.innerHTML='<div style="padding:30px;text-align:center;color:#565656;font-size:13px">'+
@@ -317,7 +335,7 @@ window.UNA_NODECOLOR={"background": "#C3C9D4", "border": "#A7AFBE", "highlight":
              font:{size:16,face:'Inter, Helvetica Neue, Arial, sans-serif',color:'#222831',background:'rgba(251,252,253,0.92)',strokeWidth:0,align:'middle',vadjust:0},
              selfReference:{size:28,angle:0.7}},
       physics:false,
-      interaction:{hover:true,hoverConnectedEdges:true,tooltipDelay:110,dragNodes:true,zoomView:true,dragView:true,navigationButtons:false,keyboard:false}
+      interaction:{hover:!COARSE,hoverConnectedEdges:true,tooltipDelay:110,dragNodes:true,zoomView:true,dragView:!COARSE,navigationButtons:false,keyboard:false}
     };
     var net=new vis.Network(el,{nodes:nodes,edges:edges},opts);
     net.fit({nodes:['_a0','_a1']});
