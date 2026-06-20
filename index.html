@@ -74,7 +74,7 @@ h2{font-size:clamp(21px,2.1vw,30px);font-weight:400;letter-spacing:-.018em;color
 .net{height:clamp(540px,80vh,1080px);border:1px solid var(--hair);border-radius:12px;touch-action:pan-y;background:
   radial-gradient(circle at 1px 1px,rgba(34,46,68,.055) 1px,transparent 0) 0 0/24px 24px,var(--surface-3);
   box-shadow:inset 0 1px 2px rgba(18,24,38,.04)}
-.net canvas{touch-action:pan-y!important}   /* vertical swipes scroll the page over the graph; pinch still zooms */
+.net canvas{touch-action:pan-y pinch-zoom!important}   /* 2026-06-20: was pan-y-only (blocked iOS Safari pinch); add pinch-zoom so two-finger pinch zooms the graph while one-finger vertical swipes still scroll the page (zoom buttons are the guaranteed fallback) */
 .edgelist{margin-top:18px}
 .edgelist summary{display:flex;align-items:center;gap:9px;cursor:pointer;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--faint);font-weight:600;padding:9px 0;list-style:none}
 .edgelist summary::-webkit-details-marker{display:none}
@@ -166,7 +166,7 @@ tbody tr:hover:not(.bandrow){background:var(--accent-soft)}
 <main class="wrap">
 <section id="d-cue" class="card step" style="--c:#39414F">
 <div class="step-head"><div class="step-num">1</div><div><h2>Cue</h2></div></div>
-<div class="toolbar"><button class="tb" data-act="layout" data-k="cue">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="cue">+ transmitter on each arrow</button><button class="tb" data-act="fit" data-k="cue">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
+<div class="toolbar"><button class="tb" data-act="layout" data-k="cue">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="cue">+ transmitter on each arrow</button><button class="tb" data-act="zoomout" data-k="cue">&#8211; Zoom out</button><button class="tb" data-act="zoomin" data-k="cue">+ Zoom in</button><button class="tb" data-act="fit" data-k="cue">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
 <div class="net" id="net-cue"></div>
 <details class="edgelist"><summary>Connection list — 24 drawn arrows (one per source · target · sign; ×k folds the firing-event steps) + 0 self-motifs folded into nodes</summary><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Connection</th><th>Effect</th><th>×k</th><th>Folded firing-event steps</th><th>Transmitter(s)</th><th>↻</th></tr></thead><tbody>
 <tr><td class="seq">1</td><td class="reg"><b>MTL</b> → <b>vHipp (vCA1/vSub)</b></td><td><span class="effb" style="--c:#176B54">activation</span></td><td class="seq"><span class="rcp">×1</span></td><td class="fn"><code title="1a · E · Glu · (AMPAR/NMDAR) · Tier B · perforant/temporoammonic path (item)">1a-07</code></td><td class="nt">Glu</td><td></td></tr>
@@ -198,7 +198,7 @@ tbody tr:hover:not(.bandrow){background:var(--accent-soft)}
 </section>
 <section id="d-mot" class="card step" style="--c:#39414F">
 <div class="step-head"><div class="step-num">2</div><div><h2>Motivation</h2></div></div>
-<div class="toolbar"><button class="tb" data-act="layout" data-k="mot">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="mot">+ transmitter on each arrow</button><button class="tb" data-act="fit" data-k="mot">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
+<div class="toolbar"><button class="tb" data-act="layout" data-k="mot">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="mot">+ transmitter on each arrow</button><button class="tb" data-act="zoomout" data-k="mot">&#8211; Zoom out</button><button class="tb" data-act="zoomin" data-k="mot">+ Zoom in</button><button class="tb" data-act="fit" data-k="mot">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
 <div class="net" id="net-mot"></div>
 <details class="edgelist"><summary>Connection list — 16 drawn arrows (one per source · target · sign; ×k folds the firing-event steps) + 2 self-motifs folded into nodes</summary><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Connection</th><th>Effect</th><th>×k</th><th>Folded firing-event steps</th><th>Transmitter(s)</th><th>↻</th></tr></thead><tbody>
 <tr><td class="seq">25</td><td class="reg"><b>NAc</b> → <b>VP</b></td><td><span class="effb" style="--c:#A81522">inhibition</span></td><td class="seq"><span class="rcp">×1</span></td><td class="fn"><code title="13a · I · GABA (+enkephalin co-release at D2) · (GABA-A; mu-OR) · Tier A · MSN GABAergic output">3-07</code></td><td class="nt">GABA (+enkephalin co-release at D2)</td><td></td></tr>
@@ -225,7 +225,7 @@ tbody tr:hover:not(.bandrow){background:var(--accent-soft)}
 </section>
 <section id="d-act" class="card step" style="--c:#39414F">
 <div class="step-head"><div class="step-num">3</div><div><h2>Action</h2></div></div>
-<div class="toolbar"><button class="tb" data-act="layout" data-k="act">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="act">+ transmitter on each arrow</button><button class="tb" data-act="fit" data-k="act">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
+<div class="toolbar"><button class="tb" data-act="layout" data-k="act">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="act">+ transmitter on each arrow</button><button class="tb" data-act="zoomout" data-k="act">&#8211; Zoom out</button><button class="tb" data-act="zoomin" data-k="act">+ Zoom in</button><button class="tb" data-act="fit" data-k="act">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
 <div class="net" id="net-act"></div>
 <details class="edgelist"><summary>Connection list — 16 drawn arrows (one per source · target · sign; ×k folds the firing-event steps) + 1 self-motifs folded into nodes</summary><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Connection</th><th>Effect</th><th>×k</th><th>Folded firing-event steps</th><th>Transmitter(s)</th><th>↻</th></tr></thead><tbody>
 <tr><td class="seq">41</td><td class="reg"><b>VTA</b> → <b>NAc</b></td><td><span class="effb" style="--c:#176B54">activation</span></td><td class="seq"><span class="rcp">×1</span></td><td class="fn"><code title="20 · E · DA · (D1/D2) · Tier A · spiral step 2">4-02</code></td><td class="nt">DA</td><td></td></tr>
@@ -251,7 +251,7 @@ tbody tr:hover:not(.bandrow){background:var(--accent-soft)}
 </section>
 <section id="d-rew" class="card step" style="--c:#39414F">
 <div class="step-head"><div class="step-num">4</div><div><h2>Reward</h2></div></div>
-<div class="toolbar"><button class="tb" data-act="layout" data-k="rew">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="rew">+ transmitter on each arrow</button><button class="tb" data-act="fit" data-k="rew">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
+<div class="toolbar"><button class="tb" data-act="layout" data-k="rew">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="rew">+ transmitter on each arrow</button><button class="tb" data-act="zoomout" data-k="rew">&#8211; Zoom out</button><button class="tb" data-act="zoomin" data-k="rew">+ Zoom in</button><button class="tb" data-act="fit" data-k="rew">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
 <div class="net" id="net-rew"></div>
 <details class="edgelist"><summary>Connection list — 6 drawn arrows (one per source · target · sign; ×k folds the firing-event steps) + 0 self-motifs folded into nodes</summary><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Connection</th><th>Effect</th><th>×k</th><th>Folded firing-event steps</th><th>Transmitter(s)</th><th>↻</th></tr></thead><tbody>
 <tr><td class="seq">57</td><td class="reg"><b>PBN</b> → <b>pINS</b></td><td><span class="effb" style="--c:#176B54">activation</span></td><td class="seq"><span class="rcp">×1</span></td><td class="fn"><code title="30a · E · Glu · (AMPAR/NMDAR) · Tier C · NEW 2026-06-11 hedonic-hotspot Reward rebuild (Berridge &amp; Kringelbach 2015, Neuron 86:646,…">5-01</code></td><td class="nt">Glu</td><td></td></tr>
@@ -265,7 +265,7 @@ tbody tr:hover:not(.bandrow){background:var(--accent-soft)}
 </section>
 <section id="d-con" class="card step" style="--c:#39414F">
 <div class="step-head"><div class="step-num">5</div><div><h2>Consolidation</h2></div></div>
-<div class="toolbar"><button class="tb" data-act="layout" data-k="con">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="con">+ transmitter on each arrow</button><button class="tb" data-act="fit" data-k="con">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
+<div class="toolbar"><button class="tb" data-act="layout" data-k="con">Switch to anatomical layout</button><button class="tb" data-act="labels" data-k="con">+ transmitter on each arrow</button><button class="tb" data-act="zoomout" data-k="con">&#8211; Zoom out</button><button class="tb" data-act="zoomin" data-k="con">+ Zoom in</button><button class="tb" data-act="fit" data-k="con">Re-centre</button><span class="hint">de-duplicated: one arrow per (source · target · sign) · ×k folds the firing-event steps · ⟲ badge = internal self-motif folded into the node (hover) · drag to fine-tune · scroll to zoom</span></div>
 <div class="net" id="net-con"></div>
 <div class="typedkey"><span class="tk-h">Typed edges <span class="tk-sub">beyond green/red projections</span></span><span class="tk-item"><span class="etb et-gate">⇌ gate</span><span class="tk-txt"><b>destabilisation gate</b> · folded into the BLA&nbsp;⟲ badge — the conceptual hinge of reconsolidation</span></span><span class="tk-item"><span class="etb et-plasticity">Δ plasticity</span><span class="tk-txt"><b>reconsolidation plasticity</b> · folded into the BLA&nbsp;⟲ badge — the re-storage it gates</span></span><span class="tk-item"><span class="etb et-process">⊖ process</span><span class="tk-txt"><b>retrieval-extinction</b> · bundled inside the BLA&nbsp;→&nbsp;NAc arrow (hover · list)</span></span></div>
 <details class="edgelist"><summary>Connection list — 19 drawn arrows (one per source · target · sign; ×k folds the firing-event steps) + 3 self-motifs folded into nodes</summary><div class="tbl-wrap"><table><thead><tr><th>#</th><th>Connection</th><th>Effect</th><th>×k</th><th>Folded firing-event steps</th><th>Transmitter(s)</th><th>↻</th></tr></thead><tbody>
@@ -335,7 +335,7 @@ window.UNA_NODECOLOR={"background": "#C3C9D4", "border": "#A7AFBE", "highlight":
              font:{size:16,face:'Inter, Helvetica Neue, Arial, sans-serif',color:'#222831',background:'rgba(251,252,253,0.92)',strokeWidth:0,align:'middle',vadjust:0},
              selfReference:{size:28,angle:0.7}},
       physics:false,
-      interaction:{hover:!COARSE,hoverConnectedEdges:true,tooltipDelay:110,dragNodes:true,zoomView:true,dragView:!COARSE,navigationButtons:false,keyboard:false}
+      interaction:{hover:true,hoverConnectedEdges:true,tooltipDelay:110,dragNodes:true,zoomView:true,dragView:true,navigationButtons:false,keyboard:false}  // 2026-06-20: dragView+hover forced true so touch can pan; explicit +/- zoom buttons guarantee zoom regardless of pinch quirks (COARSE now unused but harmless)
     };
     var net=new vis.Network(el,{nodes:nodes,edges:edges},opts);
     net.fit({nodes:['_a0','_a1']});
@@ -449,11 +449,14 @@ window.UNA_NODECOLOR={"background": "#C3C9D4", "border": "#A7AFBE", "highlight":
       for(var k in nets){if(nets[k]&&nets[k].net){nets[k].net.fit({nodes:['_a0','_a1']});nets[k].net.redraw();}}
     },140);
   });
+  function zoomBy(N,f){ if(!N||!N.net)return; var s=N.net.getScale()*f; N.net.moveTo({scale:s, position:N.net.getViewPosition(), animation:{duration:150}}); }
   document.querySelectorAll('.tb').forEach(function(b){
     b.addEventListener('click',function(){
       var k=b.getAttribute('data-k'),act=b.getAttribute('data-act'),N=nets[k];
       if(!N)return;
       if(act==='fit'){N.net.fit({nodes:['_a0','_a1']});}
+      else if(act==='zoomin'){zoomBy(N,1.3);}
+      else if(act==='zoomout'){zoomBy(N,1/1.3);}
       else if(act==='layout'){
         var nm=(N.mode==='seq')?'anat':'seq';applyLayout(k,nm);
         b.textContent=(nm==='seq')?'Switch to anatomical layout':'Switch to sequential layout';
